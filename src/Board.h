@@ -16,6 +16,7 @@ public:
 	Board();
 
 	void draw(sf::RenderWindow& window);
+	void showHighlights(const double& x, const double& y);
 
 private:
 	std::vector<std::vector<IChessPiece*>> m_boardMatrix = {

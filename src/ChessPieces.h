@@ -10,6 +10,9 @@ class IChessPiece
 public:
 	virtual void showMoves() = 0;
 	virtual void draw(sf::RenderWindow& window, const double& x, const double& y) = 0;
+
+	virtual double getX() const = 0;
+	virtual double getY() const = 0;
 };
 
 class WhitePawn : public IChessPiece
@@ -17,6 +20,16 @@ class WhitePawn : public IChessPiece
 public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
 
 protected:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_plt60.png";
@@ -31,6 +44,16 @@ public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
+
 protected:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_rlt60.png";
 
@@ -43,6 +66,16 @@ class WhiteKnight : public IChessPiece
 public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
 
 private:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_nlt60.png";
@@ -57,6 +90,16 @@ public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
+
 protected:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_blt60.png";
 
@@ -70,6 +113,16 @@ public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
+
 private:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_qlt60.png";
 
@@ -82,6 +135,16 @@ class WhiteKing : public IChessPiece
 public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
 
 private:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_klt60.png";
@@ -97,6 +160,16 @@ public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
+
 protected:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_pdt60.png";
 
@@ -109,6 +182,16 @@ class BlackRook : public IChessPiece
 public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
 
 protected:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_rdt60.png";
@@ -123,6 +206,16 @@ public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
+
 private:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_ndt60.png";
 
@@ -135,6 +228,16 @@ class BlackBishop : public IChessPiece
 public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
 
 protected:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_bdt60.png";
@@ -149,6 +252,16 @@ public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
+
 private:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_qdt60.png";
 
@@ -161,6 +274,16 @@ class BlackKing : public IChessPiece
 public:
 	void showMoves() override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+
+	double getX() const override
+	{
+		return m_x;
+	}
+
+	double getY() const override
+	{
+		return m_y;
+	}
 
 private:
 	const std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_kdt60.png";

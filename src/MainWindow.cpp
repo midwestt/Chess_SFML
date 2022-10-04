@@ -12,17 +12,18 @@ void MainWindow::create()
 	sf::Event event;
 	while (window.isOpen())
 	{
-		
-		while(window.pollEvent(event))
+		while (window.pollEvent(event))
 		{
-			switch(event.type)
+			switch (event.type)
 			{
 			case sf::Event::Closed:
 				window.close();
 				break;
+			case sf::Event::MouseButtonPressed:
+				m_board.showHighlights(event.mouseButton.x, event.mouseButton.y);
+				break;
 			}
 		}
-
 		window.clear();
 		m_board.draw(window);
 		window.display();

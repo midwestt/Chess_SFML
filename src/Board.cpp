@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <iostream>
 
 
 Board::Board() : m_rectSize(SettingsProvider::getInstance().getRectSize())
@@ -42,5 +43,21 @@ void Board::draw(sf::RenderWindow& window)
 
 		y += m_rectSize;
 		x = 0;
+	}
+}
+
+void Board::showHighlights(const double& x, const double& y)
+{
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			if (m_boardMatrix[i][j] 
+				&& (m_boardMatrix[i][j]->getX() <= x && m_boardMatrix[i][j]->getX() + m_rectSize >= x)
+				&& (m_boardMatrix[i][j]->getY() <= y && m_boardMatrix[i][j]->getY() + m_rectSize >= y))
+			{
+				m_boardMatrix[i][j]->showMoves();
+			}
+		}
 	}
 }
