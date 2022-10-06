@@ -16,18 +16,18 @@ public:
 	Board();
 
 	void draw(sf::RenderWindow& window);
-	void showHighlights(const double& x, const double& y);
+	void showHighlights(sf::RenderWindow& window, const double& x, const double& y);
 
 private:
 	std::vector<std::vector<IChessPiece*>> m_boardMatrix = {
-		{new BlackRook{}, new BlackKnight{}, new BlackBishop{}, new BlackQueen{}, new BlackKing{}, new BlackBishop{}, new BlackKnight{}, new BlackRook{}},
-		{new BlackPawn{}, new BlackPawn{}, new BlackPawn{}, new BlackPawn{}, new BlackPawn{}, new BlackPawn{}, new BlackPawn{}, new BlackPawn{}},
+		{new Rook{EBlack}, new Knight{EBlack}, new Bishop{EBlack}, new Queen{EBlack}, new King{EBlack}, new Bishop{EBlack}, new Knight{EBlack}, new Rook{EBlack}},
+		{new Pawn{EBlack}, new Pawn{EBlack}, new Pawn{EBlack}, new Pawn{EBlack}, new Pawn{EBlack}, new Pawn{EBlack}, new Pawn{EBlack}, new Pawn{EBlack}},
 		{nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},
 		{nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},
 		{nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},
 		{nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},
-		{new WhitePawn{}, new WhitePawn{}, new WhitePawn{}, new WhitePawn{}, new WhitePawn{}, new WhitePawn{}, new WhitePawn{}, new WhitePawn{}},
-		{new WhiteRook{}, new WhiteKnight{}, new WhiteBishop{}, new WhiteQueen{}, new WhiteKing{}, new WhiteBishop{}, new WhiteKnight{}, new WhiteRook{}},
+		{new Pawn{EWhite}, new Pawn{EWhite}, new Pawn{EWhite}, new Pawn{EWhite}, new Pawn{EWhite}, new Pawn{EWhite}, new Pawn{EWhite}, new Pawn{EWhite}},
+		{new Rook{EWhite}, new Knight{EWhite}, new Bishop{EWhite}, new Queen{EWhite}, new King{EWhite}, new Bishop{EWhite}, new Knight{EWhite}, new Rook{EWhite}},
 	};
 
 	double m_rectSize;

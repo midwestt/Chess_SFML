@@ -1,6 +1,7 @@
 #include "ChessPieces.h"
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 
 void drawSprite(sf::RenderWindow& window, const double& x, const double& y, const std::string& filepath)
@@ -8,7 +9,6 @@ void drawSprite(sf::RenderWindow& window, const double& x, const double& y, cons
 	sf::Texture texture{};
 	if (!texture.loadFromFile(filepath))
 	{
-		texture;
 		return;
 	}
 
@@ -18,146 +18,187 @@ void drawSprite(sf::RenderWindow& window, const double& x, const double& y, cons
 	window.draw(sprite);
 }
 
-void WhitePawn::draw(sf::RenderWindow& window, const double& x, const double& y)
+void Pawn::draw(sf::RenderWindow& window, const double& x, const double& y)
 {
+	const std::string filename = m_color == EWhite ? "Chess_plt60.png" : "Chess_pdt60.png";
+	m_filepath = SettingsProvider::getInstance().getResImgPath() + filename;
+
 	m_x = x;
 	m_y = y;
 	drawSprite(window, x, y, m_filepath);
 }
 
-void WhitePawn::showMoves()
+void Pawn::showMoves(sf::RenderWindow& window)
+{
+	sf::RectangleShape rectangle(sf::Vector2f(SettingsProvider::getInstance().getRectSize(), SettingsProvider::getInstance().getRectSize()));
+	rectangle.setPosition(m_x, m_y);
+	rectangle.setFillColor({ 0, 100, 0 , 100});
+	rectangle.setOutlineColor({ 255, 255, 255 });
+
+	window.draw(rectangle);
+}
+
+double Pawn::getX() const
+{
+	return m_x;
+}
+
+double Pawn::getY() const
+{
+	return m_y;
+}
+
+PIECE_COLOR Pawn::getColor() const
+{
+	return m_color;
+}
+
+
+void Rook::draw(sf::RenderWindow& window, const double& x, const double& y)
+{
+	const std::string filename = m_color == EWhite ? "Chess_rlt60.png" : "Chess_rdt60.png";
+	m_filepath = SettingsProvider::getInstance().getResImgPath() + filename;
+
+	m_x = x;
+	m_y = y;
+	drawSprite(window, x, y, m_filepath);
+}
+
+void Rook::showMoves(sf::RenderWindow& window)
 {
 	
 }
-
-void WhiteRook::draw(sf::RenderWindow& window, const double& x, const double& y)
+double Rook::getX() const
 {
+	return m_x;
+}
+
+double Rook::getY() const
+{
+	return m_y;
+}
+
+PIECE_COLOR Rook::getColor() const
+{
+	return m_color;
+}
+
+void Knight::draw(sf::RenderWindow& window, const double& x, const double& y)
+{
+	const std::string filename = m_color == EWhite ? "Chess_nlt60.png" : "Chess_ndt60.png";
+	m_filepath = SettingsProvider::getInstance().getResImgPath() + filename;
+
 	m_x = x;
 	m_y = y;
 	drawSprite(window, x, y, m_filepath);
 }
 
-void WhiteRook::showMoves()
+void Knight::showMoves(sf::RenderWindow& window)
 {
-	
+
 }
 
-void WhiteKnight::draw(sf::RenderWindow& window, const double& x, const double& y)
+double Knight::getX() const
 {
+	return m_x;
+}
+
+double Knight::getY() const
+{
+	return m_y;
+}
+
+PIECE_COLOR Knight::getColor() const
+{
+	return m_color;
+}
+
+void Bishop::draw(sf::RenderWindow& window, const double& x, const double& y)
+{
+	const std::string filename = m_color == EWhite ? "Chess_blt60.png" : "Chess_bdt60.png";
+	m_filepath = SettingsProvider::getInstance().getResImgPath() + filename;
+
 	m_x = x;
 	m_y = y;
 	drawSprite(window, x, y, m_filepath);
 }
 
-void WhiteKnight::showMoves()
+void Bishop::showMoves(sf::RenderWindow& window)
 {
 
 }
 
-void WhiteBishop::draw(sf::RenderWindow& window, const double& x, const double& y)
+double Bishop::getX() const
 {
+	return m_x;
+}
+
+double Bishop::getY() const
+{
+	return m_y;
+}
+
+PIECE_COLOR Bishop::getColor() const
+{
+	return m_color;
+}
+
+void Queen::draw(sf::RenderWindow& window, const double& x, const double& y)
+{
+	const std::string filename = m_color == EWhite ? "Chess_qlt60.png" : "Chess_qdt60.png";
+	m_filepath = SettingsProvider::getInstance().getResImgPath() + filename;
+
 	m_x = x;
 	m_y = y;
 	drawSprite(window, x, y, m_filepath);
 }
 
-void WhiteBishop::showMoves()
+void Queen::showMoves(sf::RenderWindow& window)
 {
 
 }
 
-void WhiteQueen::draw(sf::RenderWindow& window, const double& x, const double& y)
+double Queen::getX() const
 {
+	return m_x;
+}
+
+double Queen::getY() const
+{
+	return m_y;
+}
+
+PIECE_COLOR Queen::getColor() const
+{
+	return m_color;
+}
+
+void King::draw(sf::RenderWindow& window, const double& x, const double& y)
+{
+	const std::string filename = m_color == EWhite ? "Chess_klt60.png" : "Chess_kdt60.png";
+	m_filepath = SettingsProvider::getInstance().getResImgPath() + filename;
+
 	m_x = x;
 	m_y = y;
 	drawSprite(window, x, y, m_filepath);
 }
 
-void WhiteQueen::showMoves()
+void King::showMoves(sf::RenderWindow& window)
 {
 
 }
 
-void WhiteKing::draw(sf::RenderWindow& window, const double& x, const double& y)
+double King::getX() const
 {
-	m_x = x;
-	m_y = y;
-	drawSprite(window, x, y, m_filepath);
+	return m_x;
 }
 
-void WhiteKing::showMoves()
+double King::getY() const
 {
-
+	return m_y;
 }
 
-void BlackPawn::draw(sf::RenderWindow& window, const double& x, const double& y)
+PIECE_COLOR King::getColor() const
 {
-	m_x = x;
-	m_y = y;
-	drawSprite(window, x, y, m_filepath);
-}
-
-void BlackPawn::showMoves()
-{
-
-}
-
-void BlackRook::draw(sf::RenderWindow& window, const double& x, const double& y)
-{
-	m_x = x;
-	m_y = y;
-	drawSprite(window, x, y, m_filepath);
-}
-
-void BlackRook::showMoves()
-{
-
-}
-
-void BlackKnight::draw(sf::RenderWindow& window, const double& x, const double& y)
-{
-	m_x = x;
-	m_y = y;
-	drawSprite(window, x, y, m_filepath);
-}
-
-void BlackKnight::showMoves()
-{
-
-}
-
-void BlackBishop::draw(sf::RenderWindow& window, const double& x, const double& y)
-{
-	m_x = x;
-	m_y = y;
-	drawSprite(window, x, y, m_filepath);
-}
-
-void BlackBishop::showMoves()
-{
-
-}
-
-void BlackQueen::draw(sf::RenderWindow& window, const double& x, const double& y)
-{
-	m_x = x;
-	m_y = y;
-	drawSprite(window, x, y, m_filepath);
-}
-
-void BlackQueen::showMoves()
-{
-
-}
-
-void BlackKing::draw(sf::RenderWindow& window, const double& x, const double& y)
-{
-	m_x = x;
-	m_y = y;
-	drawSprite(window, x, y, m_filepath);
-}
-
-void BlackKing::showMoves()
-{
-
+	return m_color;
 }

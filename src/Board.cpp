@@ -46,7 +46,7 @@ void Board::draw(sf::RenderWindow& window)
 	}
 }
 
-void Board::showHighlights(const double& x, const double& y)
+void Board::showHighlights(sf::RenderWindow& window, const double& x, const double& y)
 {
 	for (int i = 0; i < 8; ++i)
 	{
@@ -56,7 +56,7 @@ void Board::showHighlights(const double& x, const double& y)
 				&& (m_boardMatrix[i][j]->getX() <= x && m_boardMatrix[i][j]->getX() + m_rectSize >= x)
 				&& (m_boardMatrix[i][j]->getY() <= y && m_boardMatrix[i][j]->getY() + m_rectSize >= y))
 			{
-				m_boardMatrix[i][j]->showMoves();
+				m_boardMatrix[i][j]->showMoves(window);
 			}
 		}
 	}

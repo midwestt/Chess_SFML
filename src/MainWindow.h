@@ -16,6 +16,10 @@ private:
 	int		m_width;
 	int		m_height;
 
+	double m_x;
+	double m_y;
+	bool m_lockClick;
+
 	Board	m_board;
 };
 
