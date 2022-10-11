@@ -56,7 +56,7 @@ void Board::showHighlights(sf::RenderWindow& window, const double& x, const doub
 				&& (m_boardMatrix[i][j]->getX() <= x && m_boardMatrix[i][j]->getX() + m_rectSize >= x)
 				&& (m_boardMatrix[i][j]->getY() <= y && m_boardMatrix[i][j]->getY() + m_rectSize >= y))
 			{
-				m_boardMatrix[i][j]->showMoves(window);
+				m_boardMatrix[i][j]->showMoves(window, m_boardMatrix);
 			}
 		}
 	}

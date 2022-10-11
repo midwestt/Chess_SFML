@@ -14,7 +14,7 @@ enum PIECE_COLOR
 class IChessPiece
 {
 public:
-	virtual void showMoves(sf::RenderWindow& window) = 0;
+	virtual void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) = 0;
 	virtual void draw(sf::RenderWindow& window, const double& x, const double& y) = 0;
 
 	virtual double getX() const = 0;
@@ -29,7 +29,7 @@ public:
 	explicit Pawn(const PIECE_COLOR& color) : m_color(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
 	PIECE_COLOR getColor() const override;
@@ -52,7 +52,7 @@ public:
 	explicit Rook(const PIECE_COLOR& color) : m_color(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
 	double getX() const override;
@@ -75,7 +75,7 @@ public:
 	explicit Knight(const PIECE_COLOR& color) : m_color(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
 	double getX() const override;
@@ -98,7 +98,7 @@ public:
 	explicit Bishop(const PIECE_COLOR& color) : m_color(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
 	double getX() const override;
@@ -121,7 +121,7 @@ public:
 	explicit Queen(const PIECE_COLOR& color) : m_color(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
 	double getX() const override;
@@ -144,7 +144,7 @@ public:
 	explicit King(const PIECE_COLOR& color) : m_color(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
 
 	double getX() const override;
