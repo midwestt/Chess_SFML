@@ -6,7 +6,7 @@ MainWindow::MainWindow(const int& width, const int& height) : m_width(width), m_
 
 void MainWindow::create()
 {
-	m_lockClick = false;
+	m_pieceChoosed = false;
 
 	sf::RenderWindow window;
 	window.create(sf::VideoMode(m_width, m_height), "Chess");
@@ -18,7 +18,7 @@ void MainWindow::create()
 
 		m_board.draw(window);
 
-		if (m_lockClick)
+		if (m_pieceChoosed)
 			m_board.showHighlights(window, m_x, m_y);
 
 		while (window.pollEvent(event))
@@ -31,8 +31,19 @@ void MainWindow::create()
 			case sf::Event::MouseButtonPressed:
 				m_x = event.mouseButton.x;
 				m_y = event.mouseButton.y;
-				m_board.showHighlights(window, m_x, m_y);
-				m_lockClick = m_lockClick ? false : true;
+
+				if (!m_pieceChoosed)
+				{
+					m_board.showHighlights(window, m_x, m_y);
+					m_pieceChoosed = true;
+				}
+				else
+				{
+					m_board.makeMove(window, m_x, m_y);
+					m_pieceChoosed = false;
+				}
+				
+
 				break;
 			}
 		}

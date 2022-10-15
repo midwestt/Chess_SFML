@@ -28,7 +28,7 @@ void Pawn::draw(sf::RenderWindow& window, const double& x, const double& y)
 	drawSprite(window, x, y, m_filepath);
 }
 
-void Pawn::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board)
+void Pawn::showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board)
 {
 	int piece_x = m_x / SettingsProvider::getInstance().getRectSize();
 	int piece_y = m_y / SettingsProvider::getInstance().getRectSize();
@@ -36,11 +36,13 @@ void Pawn::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPie
 	if (piece_y >= 7)
 		return;
 
-	for (int i = 0; i < 3; ++i)
+	int numOfMoves = m_firstMove ? 3 : 2;
+
+	for (int i = 0; i < numOfMoves; ++i)
 	{
 		int y_pos;
 
-		if (m_y < 250)
+		if (getColor() == EBlack)
 		{
 			if (piece_y + i > 7)
 				continue;
@@ -71,19 +73,40 @@ void Pawn::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPie
 	}
 }
 
-double Pawn::getX() const
+void Pawn::makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y)
 {
-	return m_x;
-}
+	int piece_x = m_x / SettingsProvider::getInstance().getRectSize();
+	int piece_y = m_y / SettingsProvider::getInstance().getRectSize();
 
-double Pawn::getY() const
-{
-	return m_y;
-}
+	int new_x = x / SettingsProvider::getInstance().getRectSize();
+	int new_y = y / SettingsProvider::getInstance().getRectSize();
 
-PIECE_COLOR Pawn::getColor() const
-{
-	return m_color;
+	bool isAvailable = false;
+	// Check if move is available
+	if (piece_x != new_x || (piece_x == new_x && piece_y == new_y))
+	{
+		return;
+	}
+
+	int moveCount = m_firstMove ? 2 : 1;
+	if (m_y < 250 && new_y - piece_y <= moveCount)
+	{
+		auto tmp = board[piece_y][piece_x];
+		board[piece_y][piece_x] = board[new_y][new_x];
+		board[new_y][new_x] = tmp;
+
+		if (m_firstMove)
+			m_firstMove = false;
+	}
+	if (m_y >= 250 && piece_y - new_y <= moveCount)
+	{
+		auto tmp = board[piece_y][piece_x];
+		board[piece_y][piece_x] = board[new_y][new_x];
+		board[new_y][new_x] = tmp;
+
+		if (m_firstMove)
+			m_firstMove = false;
+	}
 }
 
 void Rook::draw(sf::RenderWindow& window, const double& x, const double& y)
@@ -96,7 +119,7 @@ void Rook::draw(sf::RenderWindow& window, const double& x, const double& y)
 	drawSprite(window, x, y, m_filepath);
 }
 
-void Rook::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board)
+void Rook::showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board)
 {
 	int piece_x = m_x / SettingsProvider::getInstance().getRectSize();
 	int piece_y = m_y / SettingsProvider::getInstance().getRectSize();
@@ -139,20 +162,8 @@ void Rook::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPie
 	}
 }
 
-double Rook::getX() const
-{
-	return m_x;
-}
-
-double Rook::getY() const
-{
-	return m_y;
-}
-
-PIECE_COLOR Rook::getColor() const
-{
-	return m_color;
-}
+void Rook::makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y)
+{}
 
 void Knight::draw(sf::RenderWindow& window, const double& x, const double& y)
 {
@@ -164,25 +175,13 @@ void Knight::draw(sf::RenderWindow& window, const double& x, const double& y)
 	drawSprite(window, x, y, m_filepath);
 }
 
-void Knight::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board)
+void Knight::showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board)
 {
 
 }
 
-double Knight::getX() const
-{
-	return m_x;
-}
-
-double Knight::getY() const
-{
-	return m_y;
-}
-
-PIECE_COLOR Knight::getColor() const
-{
-	return m_color;
-}
+void Knight::makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y)
+{}
 
 void Bishop::draw(sf::RenderWindow& window, const double& x, const double& y)
 {
@@ -194,25 +193,13 @@ void Bishop::draw(sf::RenderWindow& window, const double& x, const double& y)
 	drawSprite(window, x, y, m_filepath);
 }
 
-void Bishop::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board)
+void Bishop::showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board)
 {
 
 }
 
-double Bishop::getX() const
-{
-	return m_x;
-}
-
-double Bishop::getY() const
-{
-	return m_y;
-}
-
-PIECE_COLOR Bishop::getColor() const
-{
-	return m_color;
-}
+void Bishop::makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y)
+{}
 
 void Queen::draw(sf::RenderWindow& window, const double& x, const double& y)
 {
@@ -224,25 +211,13 @@ void Queen::draw(sf::RenderWindow& window, const double& x, const double& y)
 	drawSprite(window, x, y, m_filepath);
 }
 
-void Queen::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board)
+void Queen::showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board)
 {
 
 }
 
-double Queen::getX() const
-{
-	return m_x;
-}
-
-double Queen::getY() const
-{
-	return m_y;
-}
-
-PIECE_COLOR Queen::getColor() const
-{
-	return m_color;
-}
+void Queen::makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y)
+{}
 
 void King::draw(sf::RenderWindow& window, const double& x, const double& y)
 {
@@ -254,22 +229,10 @@ void King::draw(sf::RenderWindow& window, const double& x, const double& y)
 	drawSprite(window, x, y, m_filepath);
 }
 
-void King::showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board)
+void King::showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board)
 {
 
 }
 
-double King::getX() const
-{
-	return m_x;
-}
-
-double King::getY() const
-{
-	return m_y;
-}
-
-PIECE_COLOR King::getColor() const
-{
-	return m_color;
-}
+void King::makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y)
+{}

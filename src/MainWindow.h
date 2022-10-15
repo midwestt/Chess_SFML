@@ -18,7 +18,7 @@ private:
 
 	double m_x;
 	double m_y;
-	bool m_lockClick;
+	bool m_pieceChoosed;
 
 	Board	m_board;
 };

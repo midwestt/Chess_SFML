@@ -11,123 +11,117 @@ enum PIECE_COLOR
 };
 
 
-class IChessPiece
+class ChessPiece
 {
 public:
-	virtual void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) = 0;
-	virtual void draw(sf::RenderWindow& window, const double& x, const double& y) = 0;
-
-	virtual double getX() const = 0;
-	virtual double getY() const = 0;
-
-	virtual PIECE_COLOR getColor() const = 0;
-};
-
-class Pawn : public IChessPiece
-{
-public:
-	explicit Pawn(const PIECE_COLOR& color) : m_color(color)
+	ChessPiece(const PIECE_COLOR& color) : m_color(color), m_isSelected(false)
 	{}
 
-	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
-	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+	virtual void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) = 0;
+	virtual void draw(sf::RenderWindow& window, const double& x, const double& y) = 0;
+	virtual void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) = 0;
 
-	PIECE_COLOR getColor() const override;
+	double getX() const
+	{
+		return m_x;
+	}
+	double getY() const
+	{
+		return m_y;
+	}
 
-	double getX() const override;
-	double getY() const override;
+	void setSelected(bool isSelected)
+	{
+		m_isSelected = isSelected;
+	}
+	bool getSelected() const
+	{
+		return m_isSelected;
+	}
+
+	PIECE_COLOR getColor() const
+	{
+		return m_color;
+	}
 
 protected:
+	double m_x;
+	double m_y;
+
+	bool m_firstMove;
+
+	PIECE_COLOR m_color;
+
+	bool m_isSelected;
+};
+
+class Pawn : public ChessPiece
+{
+public:
+	explicit Pawn(const PIECE_COLOR& color) : ChessPiece(color), m_firstMove(true)
+	{}
+
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
+	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
+
+private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_plt60.png";
 
-	double m_x;
-	double m_y;
-
-	PIECE_COLOR m_color;
+	bool m_firstMove;
 };
 
-class Rook : public IChessPiece
+class Rook : public ChessPiece
 {
 public:
-	explicit Rook(const PIECE_COLOR& color) : m_color(color)
+	explicit Rook(const PIECE_COLOR& color) : ChessPiece(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
+	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
-	double getX() const override;
-	double getY() const override;
-
-	PIECE_COLOR getColor() const override;
-
-protected:
+private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_rlt60.png";
-
-	double m_x;
-	double m_y;
-
-	PIECE_COLOR m_color;
 };
 
-class Knight : public IChessPiece
+class Knight : public ChessPiece
 {
 public:
-	explicit Knight(const PIECE_COLOR& color) : m_color(color)
+	explicit Knight(const PIECE_COLOR& color) : ChessPiece(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-
-	double getX() const override;
-	double getY() const override;
-	
-	PIECE_COLOR getColor() const override;
+	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_nlt60.png";
-
-	double m_x;
-	double m_y;
-
-	PIECE_COLOR m_color;
 };
 
-class Bishop : public IChessPiece
+class Bishop : public ChessPiece
 {
 public:
-	explicit Bishop(const PIECE_COLOR& color) : m_color(color)
+	explicit Bishop(const PIECE_COLOR& color) : ChessPiece(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-
-	double getX() const override;
-	double getY() const override;
-	
-	PIECE_COLOR getColor() const override;
+	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 protected:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_blt60.png";
-
-	double m_x;
-	double m_y;
-
-	PIECE_COLOR m_color;
 };
 
-class Queen : public IChessPiece
+class Queen : public ChessPiece
 {
 public:
-	explicit Queen(const PIECE_COLOR& color) : m_color(color)
+	explicit Queen(const PIECE_COLOR& color) : ChessPiece(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-
-	double getX() const override;
-	double getY() const override;
-
-	PIECE_COLOR getColor() const override;
+	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_qlt60.png";
@@ -136,28 +130,21 @@ private:
 	double m_y;
 
 	PIECE_COLOR m_color;
+	bool m_isSelected;
 };
 
-class King : public IChessPiece
+class King : public ChessPiece
 {
 public:
-	explicit King(const PIECE_COLOR& color) : m_color(color)
+	explicit King(const PIECE_COLOR& color) : ChessPiece(color)
 	{}
 
-	void showMoves(sf::RenderWindow& window, std::vector<std::vector<IChessPiece*>> board) override;
+	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-
-	double getX() const override;
-	double getY() const override;
-
-	PIECE_COLOR getColor() const override;
+	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_klt60.png";
-	double m_x;
-	double m_y;
-
-	PIECE_COLOR m_color;
 };
 
 #endif

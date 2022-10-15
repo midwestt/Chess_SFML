@@ -57,6 +57,25 @@ void Board::showHighlights(sf::RenderWindow& window, const double& x, const doub
 				&& (m_boardMatrix[i][j]->getY() <= y && m_boardMatrix[i][j]->getY() + m_rectSize >= y))
 			{
 				m_boardMatrix[i][j]->showMoves(window, m_boardMatrix);
+				m_boardMatrix[i][j]->setSelected(true);
+			}
+		}
+	}
+}
+
+void Board::makeMove(sf::RenderWindow& window, const double& x, const double& y)
+{
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			if (!m_boardMatrix[i][j])
+				continue;
+
+			if (m_boardMatrix[i][j]->getSelected())
+			{
+				m_boardMatrix[i][j]->setSelected(false);
+				m_boardMatrix[i][j]->makeMove(window, m_boardMatrix, x, y);
 			}
 		}
 	}
