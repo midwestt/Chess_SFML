@@ -19,7 +19,7 @@ public:
 
 	virtual void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) = 0;
 	virtual void draw(sf::RenderWindow& window, const double& x, const double& y) = 0;
-	virtual void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) = 0;
+	virtual bool makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) = 0;
 
 	double getX() const
 	{
@@ -63,7 +63,9 @@ public:
 
 	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
+	bool makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
+
+	void drawRectangle(sf::RenderWindow& window, sf::Color& color, const double& x, const double& y);
 
 private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_plt60.png";
@@ -79,7 +81,7 @@ public:
 
 	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
+	bool makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_rlt60.png";
@@ -93,7 +95,7 @@ public:
 
 	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
+	bool makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_nlt60.png";
@@ -107,7 +109,7 @@ public:
 
 	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
+	bool makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 protected:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_blt60.png";
@@ -121,7 +123,7 @@ public:
 
 	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
+	bool makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_qlt60.png";
@@ -141,7 +143,7 @@ public:
 
 	void showMoves(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>> board) override;
 	void draw(sf::RenderWindow& window, const double& x, const double& y) override;
-	void makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
+	bool makeMove(sf::RenderWindow& window, std::vector<std::vector<ChessPiece*>>& board, const double& x, const double& y) override;
 
 private:
 	std::string m_filepath = SettingsProvider::getInstance().getResImgPath() + "Chess_klt60.png";

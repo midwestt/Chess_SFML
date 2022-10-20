@@ -43,6 +43,7 @@ private:
 	};
 
 	double m_rectSize;
+	bool m_isWhiteTurn;
 };
 
 #endif

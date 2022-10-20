@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-Board::Board() : m_rectSize(SettingsProvider::getInstance().getRectSize())
+Board::Board() : m_rectSize(SettingsProvider::getInstance().getRectSize()), m_isWhiteTurn(true)
 {}
 
 void Board::draw(sf::RenderWindow& window)
@@ -56,6 +56,11 @@ void Board::showHighlights(sf::RenderWindow& window, const double& x, const doub
 				&& (m_boardMatrix[i][j]->getX() <= x && m_boardMatrix[i][j]->getX() + m_rectSize >= x)
 				&& (m_boardMatrix[i][j]->getY() <= y && m_boardMatrix[i][j]->getY() + m_rectSize >= y))
 			{
+				if (m_isWhiteTurn && m_boardMatrix[i][j]->getColor() != EWhite)
+					return;
+				else if (!m_isWhiteTurn && m_boardMatrix[i][j]->getColor() != EBlack)
+					return;
+
 				m_boardMatrix[i][j]->showMoves(window, m_boardMatrix);
 				m_boardMatrix[i][j]->setSelected(true);
 			}
@@ -75,7 +80,8 @@ void Board::makeMove(sf::RenderWindow& window, const double& x, const double& y)
 			if (m_boardMatrix[i][j]->getSelected())
 			{
 				m_boardMatrix[i][j]->setSelected(false);
-				m_boardMatrix[i][j]->makeMove(window, m_boardMatrix, x, y);
+				if (m_boardMatrix[i][j]->makeMove(window, m_boardMatrix, x, y))
+					m_isWhiteTurn = !m_isWhiteTurn;
 			}
 		}
 	}
